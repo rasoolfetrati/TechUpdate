@@ -1,0 +1,94 @@
+﻿@using Microsoft.Extensions.Options
+@using reCAPTCHA.AspNetCore
+@using RecaptchaV2Checkbox = reCAPTCHA.AspNetCore.Versions.RecaptchaV2Checkbox
+@model TechUpdate.Core.ViewModels.Users.RegisterViewModel
+@inject IOptions<RecaptchaSettings> RecaptchaSettings
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <title>ثبت نام در سايت</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/Register/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Register/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="~/AdminArea/css/bootstrap-rtl.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Register/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Register/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Register/css/main.css">
+    <link href="~/styles/vazir.css" rel="stylesheet" />
+    <style>
+        *:not(i) {
+            font-family: "Vazir" !important;
+        }
+    </style>
+    <!--===============================================================================================-->
+</head>
+<body style="background-color: #999999;">
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="login100-more" style="background-image: url('/Register/images/bg-01.jpg');"></div>
+
+            <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+                <form class="login100-form" asp-controller="Account" asp-action="Register" method="post">
+                    <span class="login100-form-title p-b-59">
+                        ثبت نام
+                    </span>
+                    <div asp-validation-summary="All" class="text-danger">
+
+                    </div>
+                    <div class="wrap-input100">
+                        <span class="label-input100">ايميل</span>
+                        <input class="input100" type="email" asp-for="Email" placeholder="آدرس ايميل">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="wrap-input100">
+                        <span class="label-input100">رمز عبور</span>
+                        <input class="input100" type="password" asp-for="Password" placeholder="*************">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="wrap-input100">
+                        <span class="label-input100">تكرار رمز عبور</span>
+                        <input class="input100" type="password" asp-for="RePassword" placeholder="*************">
+                        <span asp-validation-for="RePassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="wrap-input100">
+
+                        @(Html.Recaptcha<RecaptchaV2Checkbox>(RecaptchaSettings?.Value))
+
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="submit">
+                                ثبت نام
+                            </button>
+                        </div>
+
+                        <a asp-controller="Account" asp-action="Login" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
+                            ورود به سايت
+                            <i class="fa fa-long-arrow-left m-l-5"></i>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--===============================================================================================-->
+    <script src="/Register/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <!--===============================================================================================-->
+
+</body>
+</html>
+

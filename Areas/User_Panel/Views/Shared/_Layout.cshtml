@@ -1,0 +1,35 @@
+﻿@model TechUpdate.DataLayer.Entities.Operator.Operator
+
+<!DOCTYPE html>
+<html lang="fa-IR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل كاربري</title>
+    <link href="~/UserArea/account.css" rel="stylesheet" />
+    <link href="~/UserArea/CustomStyle.css" rel="stylesheet" />
+    <link href="~/UserArea/inline.css" rel="stylesheet" />
+    <link href="~/UserArea/public.css" rel="stylesheet" />
+    <link href="~/UserArea/site.min.css" rel="stylesheet" />
+    <link href="~/styles/vazir.css" rel="stylesheet" />
+    <link href="~/UserArea/local-messaging.css" rel="stylesheet" />
+    <link href="~/plugins/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <style>
+        * {
+            font-family: 'Vazir';
+        }
+    </style>
+</head>
+<body>
+    <div class="account-page-style" style="margin-top: 10rem">
+        <div class="container">
+            <div class="account-page">
+                <div class="row">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+﻿@model TechUpdate.Core.ViewModels.News.NewsViewModel
+@{
+    var id = (int?)ViewBag.Id;
+    ViewData["Title"] = (id != null ? "ویرایش" : "افزودن") + " خبر";
+    Layout = "~/Areas/Admin/Views/Shared/_DefaultAdmin.cshtml";
+
+}
+<br />
+<div class="text-center">
+    <h2 class="alert alert-info" style="font-family: 'Vazir' !important">افزودن خبر جدید</h2>
+</div>
+<hr />
+
+<div class="row">
+    <form asp-controller="News" asp-action="Add" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="NewsId" />
+        @if (id != null)
+        {
+            <input type="hidden" asp-for="NewsId"/>
+            <input type="hidden" asp-for="ImageName" />
+        }
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="text-danger" asp-validation-summary="All">
+
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">عنوان خبر:</label>
+                        <div class="col-md-10">
+                            @if (id == null)
+                            {
+                                <input class="form-control" asp-for="NewsTitle" type="text" value="" />
+                                <span class="text-danger" asp-validation-for="NewsTitle"></span>
+                            }
+                            else
+                            {
+                                <input class="form-control" asp-for="NewsTitle" type="text" value="@Model.NewsTitle" />
+                                <span class="text-danger" asp-validation-for="NewsTitle"></span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">توضيح مختصر خبر:</label>
+                        <div class="col-md-10">
+                            @if (id == null)
+                            {
+                                <input class="form-control" asp-for="ShortDescription" type="text" value="" />
+                                <span class="text-danger" asp-validation-for="ShortDescription"></span>
+
+                            }
+                            else
+                            {
+                                <input class="form-control" asp-for="ShortDescription" type="text" value="@Model.ShortDescription" />
+                                <span class="text-danger" asp-validation-for="ShortDescription"></span>
+
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class=" col-md-2">متن خبر:</label>
+                        <div class="col-md-10">
+                            @if (id == null)
+                            {
+                                <textarea class="form-control" id="text" asp-for="PageText"></textarea>
+                                <span class="text-danger" asp-validation-for="PageText"></span>
+
+                            }
+                            else
+                            {
+                                <textarea class="form-control" id="text" asp-for="PageText">@Model.PageText</textarea>
+                                <span class="text-danger" asp-validation-for="PageText"></span>
+
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label>
+                                @if (id == null)
+                                {
+                                    <label for="ShowInSlider">نمايش خبر در اسلايدر:</label>
+                                    <input asp-for="ShowInSlider" id="ShowInSlider" type="checkbox" />
+                                }
+                                else
+                                {
+                                    <label for="ShowInSlider">نمايش خبر در اسلايدر:</label>
+                                    <input asp-for="ShowInSlider" id="ShowInSlider" checked="@Model.ShowInSlider" />
+                                }
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input type="submit" value="ثبت خبر" class="btn btn-success btn-block " />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-title">تصویر ثابت</div>
+                    <div class="card-body text-center">
+                        @if (id == null)
+                        {
+                            <img id="imgPreviewProduct" class="img img-thumbnail" src="/images/images.jpg" height="75" width="75" />
+                        }
+                        else
+                        {
+                            <img id="imgPreviewProduct" class="img img-thumbnail" src="/NewsImage/thumb/@Model.ImageName" />
+                        }
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="file" id="imageProduct" asp-for="ImageName" />
+                                <span class="text-danger" asp-validation-for="ImageName"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="card">
+                    <div class="card-title">انتخاب گروه</div>
+                    <div class="card-body">
+                        <label asp-for="GroupID" class="control-label"></label>
+                        <select asp-for="GroupID" class="form-control" asp-items="@ViewBag.Groups"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div>
+    @Html.ActionLink("بازگشت به لیست خبرها", "Index", null, null, new { @class = "btn btn-info" })
+</div>
+
+@section Scripts
+{
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgPreviewProduct').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imageProduct").change(function () {
+            readURL(this);
+        });
+    </script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/adapters/jquery.js"></script>
+    <script>
+        $(function () {
+            $('#text').ckeditor();
+        });
+    </script>
+}

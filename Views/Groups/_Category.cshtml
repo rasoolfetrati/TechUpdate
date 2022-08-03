@@ -1,0 +1,25 @@
+﻿@using TechUpdate.Core.Services.Groups
+@inject IGroupRepository _GroupRepo
+@{
+    var cat = _GroupRepo.GetCategories();
+}
+<div class="intro" style="margin-top: 35rem;">
+    <div class="container">
+        <div class="row">
+            
+            @if (cat != null)
+            {
+                foreach (var categories in cat)
+                {
+                    <div class="col-md-4 intro_col">
+                        <div class="intro_item">
+                            <img src="/GroupImages/@categories.Imagename" alt="@categories.GroupTitle">
+                            <div class="intro_content trans_200"><a href="#">@categories.GroupTitle</a></div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<!-- Content Container -->

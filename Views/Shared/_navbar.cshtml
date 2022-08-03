@@ -1,0 +1,53 @@
+﻿@using TechUpdate.Core.Services.Groups
+@inject IGroupRepository _groupRepo
+@{
+    var getgroups = _groupRepo.GetAllGroups();
+}
+<li><a class="p-1" href="/">صفحه اصلي</a></li>
+@foreach (var item in getgroups)
+{
+    <li><a class="p-1" href="/">@item.GroupTitle</a></li>
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <li>
+        <div class="dropdown show">
+            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                پنل كاربري
+            </a>
+
+            <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuLink">
+                @if (User.HasClaim("Admins", "Operator"))
+                {
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="Index">  پنل مدیریت </a>
+
+                }
+
+                <a class="dropdown-item" asp-area="User_Panel" asp-controller="DashBoard" asp-action="Index"> مشاهده حساب کاربری </a>
+                <a class="dropdown-item" asp-area="User_Panel" asp-controller="DashBoard" asp-action="Edit"> ویرایش حساب کاربری </a>
+                <a class="dropdown-item" asp-area="User_Panel" asp-controller="DashBoard" asp-action="ChangePassword"> تغییر رمز عبور </a>
+                <a class="dropdown-item" asp-area="User_Panel" asp-controller="DashBoard" asp-action="SingOut">خروج از حساب کاربری</a>
+
+            </div>
+        </div>
+    </li>
+}
+else
+{
+    <li>
+        <div class="dropdown show">
+            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                ورود
+            </a>
+
+            <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" asp-controller="Account" asp-action="Login">ورود</a>
+                <a class="dropdown-item" asp-area="Admin" asp-controller="Account" asp-action="Signin">ورود مدیران</a>
+                <a class="dropdown-item" asp-controller="Account" asp-action="Register">عضويت</a>
+            </div>
+        </div>
+    </li>
+
+}
+<li><a class="p-1" asp-controller="Home" asp-action="ContactUs">تماس با ما</a></li>
+<li><a class="p-5" asp-controller="Home" asp-action="AboutUs">درباره ما</a></li>

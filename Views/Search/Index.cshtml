@@ -1,0 +1,155 @@
+﻿@using TechUpdate.Core.Services.News
+@model IEnumerable<TechUpdate.DataLayer.Entities.News>
+@inject INewsRepository NewsRepository;
+@{
+    ViewData["Title"] = @ViewBag.Name;
+}
+
+<div class="home">
+    <img class="parallax_background parallax-window" data-parallax="scroll" src="/images/footer.jpg" data-speed="0.8" />
+    <div class="home_content_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="home_content">
+                        <div class="home_title">Technology</div>
+                        <div class="breadcrumbs">
+                            <ul class="d-flex flex-row align-items-start justify-content-start">
+                                <li><a href="/">صفحه اصلی</a></li>
+                                <li>نتایج جستجو</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content_container">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-9">
+                <div class="">
+                    <!-- Technology -->
+
+                    <div class="technology">
+                        <div class="section_title_container d-flex flex-row align-items-end justify-content-end">
+                            <div>
+                                <div class="section_title">نتایج جستجو</div>
+                            </div>
+                            <div class="section_bar"></div>
+                        </div>
+                        <div class="technology_content">
+
+                            <!-- Post -->
+                            @if (Model != null && Model.Any())
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <div class="post_item post_h_large">
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <div class="post_image"><img src="/NewsImage/@item.ImageName" height="230" width="335" alt="@item.NewsTitle"></div>
+                                            </div>
+                                            <div class="col-lg-7">
+                                                <div class="post_content">
+                                                    <div class="post_category cat_technology"><a href="#">@NewsRepository.FindAsyncGroup(item.GroupID).Result.GroupTitle</a></div>
+                                                    <div class="post_title"><a href="/News/@item.NewsId">@item.NewsTitle</a></div>
+                                                    <div class="post_info d-flex flex-row align-items-center justify-content-start">
+                                                        <div class="post_author d-flex flex-row align-items-center justify-content-between">
+                                                            <div><div class="post_author_image"><img height="24" width="24px" class="img img-circle" src="/UserArea/Avatars/thumbnail/deafult.png" alt="@item.Writer"></div></div>
+                                                            <div class="post_author_name mr-2"><a href="/#">@item.Writer</a></div>
+                                                        </div>
+                                                        <div class="post_date"><a href="/#">تاریخ انتشار: @item.CreateDate</a></div>
+                                                    </div>
+                                                    <div class="post_text">
+                                                        <p>@item.ShortDescription</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+                                <div class="alert alert-danger">متاسفانه مطلبی با عبارت جستجو شده شما یافت نشد!</div>
+                            }
+
+
+                        </div>
+                    </div>
+
+                    <!-- World -->
+
+                    <div class="world">
+                        <div class="section_title_container d-flex flex-row align-items-start justify-content-start">
+                            <div>
+                                <div class="section_title">نقد و بررسي</div>
+                            </div>
+                            <div class="section_bar"></div>
+                        </div>
+                        <div class="row world_row">
+                            <div class="col-lg-11">
+                                <div class="row">
+                                    <div class="col-lg-6">
+
+                                        <!-- Post -->
+                                        <div class="post_item post_v_med d-flex flex-column align-items-start justify-content-start">
+                                            <div class="post_image"><img src="/images/post_4.jpg" alt="oria_hector"></div>
+                                            <div class="post_content">
+                                                <div class="post_category cat_technology"><a href="/category.html">technology</a></div>
+                                                <div class="post_title"><a href="/single.html">Keep up with the tech</a></div>
+                                                <div class="post_info d-flex flex-row align-items-center justify-content-start">
+                                                    <div class="post_author d-flex flex-row align-items-center justify-content-start">
+                                                        <div><div class="post_author_image"><img src="/images/author_1.jpg" alt=""></div></div>
+                                                        <div class="post_author_name"><a href="/#">Michael Smith</a></div>
+                                                    </div>
+                                                    <div class="post_date"><a href="/#">29 April 2018</a></div>
+                                                    <div class="post_comments ml-auto"><a href="/#">3 comments</a></div>
+                                                </div>
+                                                <div class="post_text">
+                                                    <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet tempor cursus. Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero luctus, vel volutpat quam tincidunt. Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+
+                                        <!-- Post -->
+                                        <div class="post_item post_v_med d-flex flex-column align-items-start justify-content-start">
+                                            <div class="post_image"><img src="/images/post_5.jpg" alt="mattyfours"></div>
+                                            <div class="post_content">
+                                                <div class="post_category cat_technology"><a href="/category.html">technology</a></div>
+                                                <div class="post_title"><a href="/single.html">Keep up with the tech</a></div>
+                                                <div class="post_info d-flex flex-row align-items-center justify-content-start">
+                                                    <div class="post_author d-flex flex-row align-items-center justify-content-start">
+                                                        <div><div class="post_author_image"><img src="/images/author_1.jpg" alt=""></div></div>
+                                                        <div class="post_author_name"><a href="/#">Michael Smith</a></div>
+                                                    </div>
+                                                    <div class="post_date"><a href="/#">29 April 2018</a></div>
+                                                    <div class="post_comments ml-auto"><a href="/#">3 comments</a></div>
+                                                </div>
+                                                <div class="post_text">
+                                                    <p>Curabitur venenatis efficitur lorem sed tempor. Integer aliquet tempor cursus. Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero luctus, vel volutpat quam tincidunt. Nullam vestibulum convallis risus vel condimentum. Nullam auctor lorem in libero.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <partial name="~/Views/SideBar/_LastsPost.cshtml" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

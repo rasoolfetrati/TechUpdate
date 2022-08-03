@@ -1,0 +1,67 @@
+﻿@model TechUpdate.Core.ViewModels.Groups.GroupViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_DefaultAdmin.cshtml";
+}
+
+
+<br/>
+<div class="row">
+    <div class="col-md-9">
+        <form asp-action="Create" method="post" enctype="multipart/form-data" class="form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GroupTitle" class="control-label"></label>
+                <input asp-for="GroupTitle" class="form-control" />
+                <span asp-validation-for="GroupTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">تصویر</label>
+                <input type="file" id="imageProduct" asp-for="ImageGroup" class="form-control" />
+                <span asp-validation-for="Imagename" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ShowInCategory" /> نمایش در کتگوری؟
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ثبت گروه" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-title">تصویر ثابت</div>
+            <div class="card-body text-center">
+                <img id="imgPreviewProduct" class="img img-thumbnail" src="/GroupImages/noimages.png" width="75" height="75">
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
+<div>
+    @Html.ActionLink("بازگشت به لیست خبرها", "Index", null, null, new { @class = "btn btn-info" })
+</div>
+@section Scripts
+{
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgPreviewProduct').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imageProduct").change(function () {
+            readURL(this);
+        });
+    </script>
+}

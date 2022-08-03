@@ -1,0 +1,118 @@
+﻿@using TechUpdate.Core.Services.News
+@using TechUpdate.Site.InfraStructure
+@model IEnumerable<TechUpdate.Core.ViewModels.News.NewsViewModel>
+@inject INewsRepository _newsRepository
+@{
+    ViewData["Title"] = "Index";
+    var tops = _newsRepository.GettopNews();
+}
+
+<partial name="Slider" />
+<partial name="~/Views/Groups/_Category.cshtml" />
+<div class="content_container">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-9">
+                <div class="">
+                    <!-- Technology -->
+
+                    <div class="technology">
+                        <div class="section_title_container d-flex flex-row align-items-end justify-content-end">
+                            <div>
+                                <div class="section_title">اخرين پست ها</div>
+                            </div>
+                            <div class="section_bar"></div>
+                        </div>
+                        <div class="technology_content">
+
+                            <!-- Post -->
+                            @foreach (var item in Model)
+                            {
+                                <div class="post_item post_h_large">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <div class="post_image"><img src="/NewsImage/@item.ImageName" height="230" width="335" alt="@item.NewsTitle"></div>
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <div class="post_content">
+                                                <div class="post_category cat_technology"><a href="#">@_newsRepository.FindAsyncGroup(item.GroupID).Result.GroupTitle</a></div>
+                                                <div class="post_title"><a href="/News/@item.NewsId">@item.NewsTitle</a></div>
+                                                <div class="post_info d-flex flex-row align-items-center justify-content-start">
+                                                    <div class="post_author d-flex flex-row align-items-center justify-content-between">
+                                                        <div><div class="post_author_image"><img height="24" width="24" class="img img-circle" src="/UserArea/Avatars/thumbnail/deafult.png" alt="@item.Writer"></div></div>
+                                                        <div class="post_author_name mr-2"><a href="#">@item.Writer</a></div>
+                                                    </div>
+                                                    <div class="post_date"><a href="#">تاریخ انتشار: @item.CreateDate</a></div>
+                                                </div>
+                                                <div class="post_text">
+                                                    <p>@item.ShortDescription</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
+
+                        </div>
+                    </div>
+
+                    <!-- World -->
+
+                    <div class="world">
+                        <div class="section_title_container d-flex flex-row align-items-start justify-content-start">
+                            <div>
+                                <div class="section_title">برترین خبر ها</div>
+                            </div>
+                            <div class="section_bar"></div>
+                        </div>
+                        <div class="row world_row">
+                            <div class="col-lg-11">
+                                <div class="row">
+                                    @foreach (var ntop in tops)
+                                    {
+                                        <div class="col-lg-6">
+
+                                            <!-- Post -->
+                                            <div class="post_item post_v_med d-flex flex-column align-items-start justify-content-start">
+                                                <div class="post_image"><img src="/NewsImage/@ntop.ImageName" width="372" height="250" alt="@ntop.NewsTitle"></div>
+                                                <div class="post_content">
+                                                    <div class="post_category cat_technology"><a href="#">@_newsRepository.FindAsyncGroup(ntop.GroupID).Result.GroupTitle</a></div>
+                                                    <div class="post_title"><a href="/News/@ntop.NewsId">@ntop.NewsTitle</a></div>
+                                                    <div class="post_info d-flex flex-row align-items-center justify-content-start">
+                                                        <div class="post_author d-flex flex-row align-items-center justify-content-start">
+                                                            <div><div class="post_author_image"><img width="24" height="24" src="/UserArea/Avatars/thumbnail/@ntop.Writer.Avatar" alt="@ntop.Writer.FirstName @ntop.Writer.LastName"></div></div>
+                                                            <div class="post_author_name mr-2"><a href="/#">@ntop.Writer.FirstName @ntop.Writer.LastName</a></div>
+                                                        </div>
+                                                        <div class="post_date"><a href="/#">@ntop.CreateDate.ToShamsi()</a></div>
+                                                    </div>
+                                                    <div class="post_text">
+                                                        <p>@ntop.ShortDescription</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <partial name="~/Views/SideBar/_LastsPost.cshtml" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

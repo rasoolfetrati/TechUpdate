@@ -1,0 +1,85 @@
+﻿@model TechUpdate.DataLayer.Entities.Operator.Operator
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/User_Panel/Views/Shared/_Layout.cshtml";
+}
+<partial name="_SideBar" />
+
+<!-- left side -->
+<div class="col-md-9 col-sm-12 col-xs-12">
+    <div class="left-content">
+
+        <section class="section-style box-shadow">
+            <header><h2> ویرایش حساب کاربری </h2></header>
+            <div class="inner">
+                <form method="post" class="form-style" asp-area="User_Panel" asp-controller="DashBoard" asp-action="Edit" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="Avatar"/>
+                    <div asp-validation-summary="All">
+
+                    </div>
+                    @if (ViewBag.success != null)
+                    {
+                        <div class="alert alert-success">
+                            <span class="text-success">@ViewBag.success</span>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="input-layer">
+                                <label><i class="fa fa-user-circle-o"></i>  نام </label>
+                                <input type="text" id="FirstName" asp-for="FirstName">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="input-layer">
+                                <label><i class="fa fa-user-circle"></i>  نام خانوادگی </label>
+                                <input type="text" id="LastName" asp-for="LastName" >
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="input-layer">
+                                <label><i class="fa fa-globe"></i>  آدرس وبسایت </label>
+                                <input type="url" id="WebSiteUrl" asp-for="WebSite">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="input-layer">
+                                <label><i class="fa fa-mobile-phone"></i>  شماره تماس </label>
+                                <input type="tel" asp-for="PhoneNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="input-layer">
+                                <label><i class="fa fa-file-image-o"></i>  آواتار </label>
+                                <input type="file" id="image" asp-for="Avatar" name="UserAvatar">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="btn-group multi-radio-in-row">
+                                <div class="radio-option">
+                                    <input type="radio" value="NoSet" asp-for="Gender" checked="">
+                                    <label for="none-s"> جنسیت نامشخص </label>
+
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" value="Female" id="woman" asp-for="Gender">
+                                    <label for="woman"> خانم </label>
+                                </div>
+                                <div class="radio radio-option">
+                                    <input type="radio" value="Male" id="man" asp-for="Gender">
+                                    <label for="man"> آقا </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3 col-xs-12 pull-left">
+                            <button class="button-st green pull-left"> ویرایش حساب کاربری </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- /left side -->

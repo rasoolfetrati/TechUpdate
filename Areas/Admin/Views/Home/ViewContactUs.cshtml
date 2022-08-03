@@ -1,0 +1,95 @@
+﻿@model List<TechUpdate.Core.ViewModels.Contact.ContactViewModel>
+@{
+    ViewData["Title"] = "تماس با ما";
+    Layout = "~/Areas/Admin/Views/Shared/_DefaultAdmin.cshtml";
+}
+<br />
+@if (ViewBag.Empty != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Empty
+    </div>
+}
+<div id="accordion">
+    @if (Model != null)
+    {
+
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <div class="card-header" id="heading_@item.Id">
+                    <h5 class="mb-0">
+                        <span class="d-flex d-inline justify-content-between">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse_@item.Id" aria-expanded="true" aria-controls="collapse_@item.Id">
+                                <label>پيامي از طرف : @item.Fullname</label>
+                            </button>
+                            <div class="d-flex justify-content-end text-light">
+                                <form id="deleteForm" asp-area="Admin" asp-controller="Home" asp-action="DeleteMessage" asp-route-Id="@item.Id" method="post" class="d-inline ml-2">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm" onclick="archiveFunction()">
+                                        <i class="fa fa-trash-o fa-fw"></i>
+                                    </button>
+                                </form>
+                                <span><a class="btn btn-success btn-sm" asp-area="Admin" asp-controller="Home" asp-action="SendMail" asp-route-Email="@item.Email"><i class="fa fa-mail-reply fa-fw"></i></a></span>
+                            </div>
+                        </span>
+                    </h5>
+                </div>
+
+                <div id="collapse_@item.Id" class="collapse @(item.Id ==1 ?"show":"hide")" aria-labelledby="heading_@item.Id" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>آدرس ايميل: @item.Email</p>
+                        <p>تاريخ ارسال :@item.CreateData</p>
+                        <p>وبسايت: @item?.WebSite</p>
+                        <p>متن پيام: <br>@item.Message</p>
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+    }
+</div>
+@section Scripts
+{
+    <script>
+        function archiveFunction() {
+            event.preventDefault();
+            var form = event.target.form;
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger m-2'
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: 'آیا مطمئن هستید؟',
+                text: "تغییرات غیر قابل بازگشت خواهد بود!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'بله, حذفش کن!',
+                cancelButtonText: 'نه, منصرف شدم!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'حذف شد!',
+                        'آیتم با موفقیت حذف شد.',
+                        'success'
+                    )
+                    setTimeout(function () {
+                        form.submit();
+                    }, 1000);
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'لغو شد',
+                        'شما عملیات حذف را لغو کردید :)',
+                        'error'
+                    )
+                }
+            })
+        }
+    </script>
+}

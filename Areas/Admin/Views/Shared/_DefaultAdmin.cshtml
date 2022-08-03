@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>پنل ادمين</title>
+    <!-- Core CSS - Include with every page -->
+    <link href="~/styles/bootstrap-4.1.2/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/AdminArea/css/bootstrap-rtl.min.css" rel="stylesheet" />
+    <link href="~/plugins/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <!-- Core CSS - Include with every page -->
+    <!-- Page-Level Plugin CSS - Dashboard -->
+    <link href="~/AdminArea/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="~/AdminArea/css/plugins/timeline/timeline.css" rel="stylesheet" />
+    <link href="~/AdminArea/css/sb-admin.css" rel="stylesheet" />
+    <link href="~/styles/vazir.css" rel="stylesheet" />
+    <!-- SB Admin CSS - Include with every page -->
+    <style>
+        * {
+            font-family: "Vazir";
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar navbar-light bg-light navbar-fixed-top fixed-top" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/Admin">پنل مدیریت مجله اينترنتي تكنولوژي هاي روز</a>
+            </div>
+            <!-- /.navbar-header -->
+            <div class="btn-group mr-auto">
+                <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span><i class="fa fa-user fa-fw"></i></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-left">
+                    <a class="dropdown-item" type="button" href="/">صفحه اصلی سایت</a>
+                    <a class="dropdown-item" type="button" asp-area="Admin" asp-controller="Home" asp-action="Index">داشبورد</a>
+                    <a class="dropdown-item" type="button" asp-area="Admin" asp-controller="News" asp-action="Index">مدیریت خبر ها</a>
+                    <a class="dropdown-item" type="button" asp-area="Admin" asp-controller="Groups" asp-action="Index">مدیریت گروه خبر ها</a>
+                    <a class="dropdown-item" type="button" asp-area="Admin" asp-controller="Account" asp-action="Index">مدیریت کاربران</a>
+                    <a class="dropdown-item" type="button" asp-area="Admin" asp-controller="Home" asp-action="SendMail">ارسال ایمیل</a>
+                    <a class="dropdown-item" type="button">مدیریت نظرات</a>
+                    <a class="dropdown-item" type="button" asp-area="Admin" asp-controller="Home" asp-action="ViewContactUs">بخش تماس با ما</a>
+                </div>
+            </div>
+            <div class="mr-2">
+                <a asp-area="User_Panel" asp-controller="DashBoard" asp-action="SingOut"><span class="btn btn-outline-danger"><i class="fa fa-power-off fa-fw"></i></span></a>
+            </div>
+            <div class="mr-2">
+                <a href="/"><span class="btn btn-outline-primary"><i class="fa fa-home fa-fw"></i></span></a>
+            </div>
+            <div class="mr-2">
+                <a href="/Admin"><span class="btn btn-outline-primary"><i class="fa fa-dashboard fa-fw"></i></span></a>
+            </div>
+
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav nav-second-level" style="margin-top: 15rem;" id="side-menu">
+                        <li>
+                            <a href="/Admin"><i class="fa fa-dashboard fa-fw"></i> داشبورد</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> مديريت خبر ها<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a asp-area="Admin" asp-action="Index" asp-controller="Groups">گروه خبرها</a>
+                                </li>
+                                <li>
+                                    <a asp-area="Admin" asp-controller="News" asp-action="Index">لیست خبرها</a>
+                                </li>
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Account" asp-action="Index"><i class="fa fa-users fa-fw"></i>کاربران</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Home" asp-action="SendMail"><i class="fa fa-address-book fa-fw"></i>ارسال ایمیل</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Home" asp-action="ManageComments"><i class="fa fa-comments fa-fw"></i>نظرات تایید نشده!</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Home" asp-action="ViewContactUs"><i class="fa fa-codepen fa-fw"></i>تماس با ما</a>
+                        </li>
+                    </ul>
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            @RenderBody()
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- Core Scripts - Include with every page -->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/AdminArea/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/AdminArea/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/styles/bootstrap-4.1.2/bootstrap.min.js"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="~/AdminArea/js/sb-admin.js"></script>
+    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
+    <script src="/js/sweetalert.js"></script>
+
+    @RenderSection("Scripts", false)
+</body>
+
+</html>

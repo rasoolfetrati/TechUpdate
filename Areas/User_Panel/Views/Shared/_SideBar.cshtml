@@ -1,0 +1,31 @@
+﻿@using TechUpdate.Core.Services.User
+@using TechUpdate.Core.ViewModels.Users
+@inject IUserService _userService
+@{
+    SideBarViewModel user = _userService.GetSideBarPanel(User.Identity.Name);
+}
+<div class="col-md-3 col-sm-12 col-xs-12">
+    <!-- right side -->
+    <aside class="sidebar box-shadow">
+
+          <div class="headline">
+              <div class="img-layer">
+                  <img id="imgAvatar" class="imgAvatar" src="/UserArea/Avatars/thumbnail/@user.ImageName">
+              </div>
+              <h1> @user.FirstName @user.LastName </h1>
+              <a data-toggle="tooltip" data-placement="right" title="" class="exit-link" asp-area="User_Panel" asp-controller="DashBoard" asp-action="SingOut" data-original-title=" خروج از حساب "><i class="fa fa-power-off"></i></a>
+          </div>
+      
+    
+        <section class="access-menu">
+            <ul>
+                <li><a href="/">صفحه اصلی سایت  </a></li>
+                <li><a asp-area="User_Panel" asp-controller="DashBoard" asp-action="Index">داشبورد  </a></li>
+                <li><a asp-area="User_Panel" asp-controller="DashBoard" asp-action="Edit"> ویرایش حساب کاربری </a></li>
+                <li><a asp-area="User_Panel" asp-controller="DashBoard" asp-action="ChangePassword"> تغییر رمز عبور </a></li>
+                <li><a asp-area="User_Panel" asp-controller="DashBoard" asp-action="SingOut"> خروج از حساب کاربری </a></li>
+            </ul>
+        </section>
+    </aside>
+    <!-- /right side -->
+</div>

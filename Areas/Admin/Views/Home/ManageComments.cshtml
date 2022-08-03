@@ -1,0 +1,95 @@
+﻿@using TechUpdate.Core.Services.Comment
+@model List<TechUpdate.Core.ViewModels.Comments.CommentViewModel>
+@inject ICommentRepository _CommentRepository;
+@{
+    ViewData["Title"] = "ManageComments";
+    Layout = "~/Areas/Admin/Views/Shared/_DefaultAdmin.cshtml";
+}
+<br />
+<div id="accordion">
+    @if (Model != null)
+    {
+
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <div class="card-header" id="heading_@item.CommentID">
+                    <h5 class="mb-0">
+                        <span class="d-flex d-inline justify-content-between">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse_@item.CommentID" aria-expanded="true" aria-controls="collapse_@item.CommentID">
+                                <label>کامنت جدیدی برای خبر  : @_CommentRepository.GetNewsTitle(item.NewsId).Result.NewsTitle</label>
+                            </button>
+                            <div class="d-flex justify-content-end text-light">
+                                <form id="deleteForm" asp-area="Admin" asp-controller="Home" asp-action="DeleteComment" asp-route-CommentId="@item.CommentID" method="post" class="d-inline ml-2">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm" onclick="archiveFunction()">
+                                        <i class="fa fa-trash-o fa-fw"></i>
+                                    </button>
+                                </form>
+                                <form asp-area="Admin" asp-controller="Home" asp-action="ConfirmComment" asp-route-CommentId="@item.CommentID" method="post" class="d-inline ml-2">
+                                    <button type="submit" class="btn btn-outline-success btn-sm">
+                                        <i class="fa fa-check fa-fw"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </span>
+                    </h5>
+                </div>
+
+                <div id="collapse_@item.CommentID" class="collapse @(item.CommentID ==1 ?"show":"hide")" aria-labelledby="heading_@item.CommentID" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>نام کاربر: @item.FullName</p>
+                        <p>آدرس ايميل: @item.Email</p>
+                        <p>تاريخ ارسال :@item.SaveDate</p>
+                        <p>متن پيام: <br>@Html.Raw(item.CommentText)</p>
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+    }
+</div>
+@section Scripts
+{
+    <script>
+        function archiveFunction() {
+            event.preventDefault();
+            var form = event.target.form;
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger m-2'
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: 'آیا مطمئن هستید؟',
+                text: "تغییرات غیر قابل بازگشت خواهد بود!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'بله, حذفش کن!',
+                cancelButtonText: 'نه, منصرف شدم!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'حذف شد!',
+                        'آیتم با موفقیت حذف شد.',
+                        'success'
+                    ),
+                    setTimeout(function () {
+                        form.submit();
+                    }, 1000);
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'لغو شد',
+                        'شما عملیات حذف را لغو کردید :)',
+                        'error'
+                    )
+                }
+            })
+        }
+    </script>
+}

@@ -1,0 +1,188 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>مجله اینترنتی تکنولوژیهای روز</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Tech Mag template project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/styles/bootstrap-4.1.2/bootstrap.min.css">
+    <link href="~/AdminArea/css/bootstrap-rtl.min.css" rel="stylesheet" />
+    <link href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="/styles/responsive.css">
+    <link rel="stylesheet" type="text/css" href="/styles/contact.css">
+    <link rel="stylesheet" type="text/css" href="/styles/contact_responsive.css">
+    <link href="~/styles/single.css" rel="stylesheet" />
+    <link href="~/styles/single_responsive.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="super_container">
+
+        <!-- Header -->
+
+        <header class="header">
+
+
+            <div class="header_content_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="header_content d-flex flex-row align-items-center justfy-content-start">
+                                <div class="logo_container">
+                                    <a href="/">
+                                        <div class="logo"><span>Update</span>Tech</div>
+                                        <div class="logo_sub">مجله اينترنتي تكنولوژي هاي بروز</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Header Navigation & Search -->
+            <div class="navbar header_nav_container" id="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="header_nav_content d-flex flex-row align-items-center justify-content-start">
+
+                                <!-- Logo -->
+                                <div class="logo_container">
+                                    <a href="/">
+                                        <div class="logo"><span>Tech</span>Update</div>
+                                        <div class="logo_sub">مجله اينترنتي تكنولوژي هاي بروز</div>
+                                    </a>
+                                </div>
+
+                                <!-- Navigation -->
+                                <nav class="main_nav">
+                                    <ul class="main_nav_list navbar d-flex flex-row align-items-center justify-content-start">
+                                        <partial name="_navbar" />
+                                    </ul>
+                                </nav>
+
+                                <!-- Search -->
+                                <div class="header_search_container ml-auto" style="direction: ltr">
+                                    <div class="header_search">
+                                        <form asp-controller="Search" asp-action="Index" method="get" id="header_search_form" class="header_search_form d-flex flex-row align-items-center justify-content-start">
+                                            <span class=""><a id="rf" type="submit"><i class="fa fa-search fa-fw"></i></a></span>
+                                            <input type="text" class="header_search_input" placeholder="جستجو کنید ..." name="q" required="required">
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- Hamburger -->
+                                <div class="hamburger ml-auto menu_mm"><i class="fa fa-bars  trans_200 menu_mm" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Menu -->
+
+        <div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+            <div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
+            <div class="search">
+                <form asp-controller="Search" asp-action="Index" method="get" class="header_search_form menu_mm">
+                    <input type="search" class="search_input menu_mm" name="q" placeholder="Search" required="required">
+                    <button class="header_search_button d-flex flex-column align-items-center justify-content-center menu_mm">
+                        <i class="fa fa-search menu_mm" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </div>
+            <nav class="menu_nav">
+                <ul class="menu_mm">
+                    <partial name="_navbar" />
+                </ul>
+            </nav>
+        </div>
+
+
+
+        <!-- index -->
+
+        @RenderBody()
+
+
+
+        <!-- Footer -->
+
+        <footer class="footer" dir="ltr">
+            <div class="footer_social">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            <ul class="footer_social_list d-flex flex-row align-items-center justify-content-center">
+                                <li><a href="/#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="/#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="/#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="/#"><i class="fa fa-telegram" aria-hidden="true"></i></a></li>
+                                <li><a href="/#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                <li><a href="/#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer_content">
+
+                <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="/images/footer.jpg" data-speed="0.8"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="logo_container">
+                                <a href="/">
+                                    <div class="logo"><span>Tech</span>Update</div>
+                                    <div class="logo_sub text-right">مجله اينترنتي تكنولوژي هاي بروز</div>
+                                </a>
+                            </div>
+                            <div class="footer_nav_container text-center">
+                                <nav class="footer_nav">
+                                    <ul class="footer_nav_list d-flex flex-md-row flex-column align-items-center justify-content-start">
+                                        <li><a href="/">صفحه اصلی</a></li>
+                                        <li><a href="#">تکنولوژی</a></li>
+                                        <li><a href="#">اختراعات</a></li>
+                                        <li><a href="#">سرگرمی</a></li>
+                                        <li><a href="#">هوش مصنوعی</a></li>
+                                        <li><a asp-controller="Home" asp-action="ContactUs">تماس با ما</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="copyright">
+                                تمام حقوق محفوظ است
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/styles/bootstrap-4.1.2/popper.js"></script>
+    <script src="/styles/bootstrap-4.1.2/bootstrap.min.js"></script>
+    <script src="/plugins/greensock/TweenMax.min.js"></script>
+    <script src="/plugins/greensock/TimelineMax.min.js"></script>
+    <script src="/plugins/scrollmagic/ScrollMagic.min.js"></script>
+    <script src="/plugins/greensock/animation.gsap.min.js"></script>
+    <script src="/plugins/greensock/ScrollToPlugin.min.js"></script>
+    <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="/plugins/easing/easing.js"></script>
+    <script src="/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="/plugins/progressbar/progressbar.min.js"></script>
+    <script src="/js/custom.js"></script>
+    <script src="~/js/single.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>
+

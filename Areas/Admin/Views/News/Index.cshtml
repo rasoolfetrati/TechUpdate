@@ -1,0 +1,86 @@
+﻿@model List<TechUpdate.Core.ViewModels.News.NewsViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_DefaultAdmin.cshtml";
+}
+<br />
+<p>
+    <a class="btn btn-primary" asp-area="Admin" asp-controller="News" asp-action="Add">افزودن خبر جدید</a>
+</p>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>نام تصوير</th>
+        <th>عنوان خبر</th>
+        <th>نويسنده</th>
+        <th>اسلايدر</th>
+        <th>تاريخ انتشار</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td><img class="img img-thumbnail" src="/NewsImage/thumb/@item.ImageName"></td>
+            <td>@item.NewsTitle</td>
+            <td>@item.Writer</td>
+            <td><input type="checkbox" checked="@item.ShowInSlider" disabled="disabled" /></td>
+            <td>@item.CreateDate</td>
+            <td class="text-center">
+                <span class="btn btn-outline-warning btn-sm"><a asp-area="Admin" asp-controller="News" asp-action="Edit" asp-route-NewsId="@item.NewsId"><i class="fa fa-edit fa-fw"></i></a></span>
+                <form id="deleteForm" asp-area="Admin" asp-controller="News" asp-action="Delete" asp-route-NewsId="@item.NewsId" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-danger btn-sm" onclick="archiveFunction()">
+                        <i class="fa fa-trash-o fa-fw"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+
+@section Scripts
+{
+    <script>
+        function archiveFunction() {
+            event.preventDefault();
+            var form = event.target.form;
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger m-2'
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: 'آیا مطمئن هستید؟',
+                text: "تغییرات غیر قابل بازگشت خواهد بود!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'بله, حذفش کن!',
+                cancelButtonText: 'نه, منصرف شدم!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'حذف شد!',
+                        'آیتم با موفقیت حذف شد.',
+                        'success'
+                    )
+                    setTimeout(function () {
+                        form.submit();
+                    }, 1000);
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'لغو شد',
+                        'شما عملیات حذف را لغو کردید :)',
+                        'error'
+                    )
+                }
+            })
+        }
+    </script>
+}

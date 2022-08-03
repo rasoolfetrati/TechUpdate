@@ -1,0 +1,108 @@
+﻿@model TechUpdate.Core.ViewModels.Contact.ContactViewModel
+@{
+    ViewData["Title"] = "ContactUs";
+}
+
+<div class="home">
+    <img src="/images/about.jpg" class="parallax-window parallax_background" />
+    <div class="home_content_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="home_content">
+                        <div class="home_title">تماس با ما</div>
+                        <div class="breadcrumbs">
+                            <ul class="d-flex flex-row align-items-start justify-content-start">
+                                <li><a href="/">صفحه اصلی</a></li>
+                                <li>تماس با ما</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="contact">
+    <div class="container">
+        <div class="row">
+
+            <!-- Contact Content -->
+            <div class="col-lg-4 contact_col">
+                <div class="contact_content">
+                    <div class="contact_title">با ما در تماس باشید!</div>
+                    <div class="contact_text">
+                        <p>
+                            موضوع یا مطلب خاصی مد نظر شما است که در قالب مقاله در تکنولوژی بروز منتشر شود؟ در هنگام مرور صفحات تکنولوژی بروز متوجه مشکل خاصی شده‌اید؟ پیشنهاد یا انتقادی نسبت به یکی از اعضاء تحریریه‌ی تکنولوژی بروز دارید؟ از طریق فرم زیر با ما در ارتباط باشید و انتقادات و پیشنهادات خود را با ما در میان بگذارید.
+                        </p>
+                    </div>
+                    <div class="contact_social">
+                        <ul class="contact_social_list d-flex flex-row align-items-center justify-content-start">
+                            <li><a href="/#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="/#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="/#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="/#"><i class="fa fa-telegram" aria-hidden="true"></i></a></li>
+                            <li><a href="/#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                            <li><a href="/#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="contact_info">
+                        <ul>
+                            <li class="d-flex flex-row align-items-center justify-content-start">
+                                <div class="contact_info_box d-flex flex-column align-items-center justify-content-center">
+                                    <div class="contact_info_icon"><img src="/images/icon_9.svg" alt=""></div>
+                                </div>
+                                <div class="contact_info_content mr-2">خراسان رضوی-کاشمر</div>
+                            </li>
+                            <li class="d-flex flex-row align-items-center justify-content-start">
+                                <div class="contact_info_box d-flex flex-column align-items-center justify-content-center">
+                                    <div class="contact_info_icon"><img src="/images/icon_10.svg" alt="rasool fetrati"></div>
+                                </div>
+                                <div class="contact_info_content mr-2">rasoulfetrati2@gmail.com</div>
+                            </li>
+                            <li class="d-flex flex-row align-items-center justify-content-start">
+                                <div class="contact_info_box d-flex flex-column align-items-center justify-content-center">
+                                    <div class="contact_info_icon"><img src="/images/icon_11.svg" alt=""></div>
+                                </div>
+                                <div class="contact_info_content mr-2">11 22 666 915 98+</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-lg-8 contact_col">
+                <div class="contact_form_container">
+                    <div class="contact_title">پيام خود را ارسال كنيد!</div>
+                    <form id="contact_form" class="contact_form" asp-controller="Home" asp-action="ContactUs" method="post">
+                        <div class="text-danger" asp-validation-summary="All">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="fullname" class="contact_input" placeholder="نام و نام خانوادگي" asp-for="Fullname">
+                                <span class="text-danger" asp-validation-for="Fullname"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" name="email" class="contact_input" placeholder="آدرس ايميل" asp-for="Email">
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </div>
+                        </div>
+                        <input type="url" name="website" class="contact_input" placeholder="آدرس وب سايت" asp-for="WebSite">
+                        <span class="text-danger" asp-validation-for="WebSite"></span>
+                        <textarea name="message" class="contact_input contact_textarea" placeholder="متن پيام ..." asp-for="Message"></textarea>
+                        <span class="text-danger" asp-validation-for="Message"></span>
+                        <button class="contact_button trans_200">ارسال</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="/js/contact.js"></script>
+}

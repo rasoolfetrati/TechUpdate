@@ -1,0 +1,35 @@
+﻿@using TechUpdate.Core.Services.News
+@inject INewsRepository _newsRepository
+@{
+    var getImages = _newsRepository.GetImagesForSlider();
+}
+<div dir="ltr" class="row">
+    <div class="home">
+
+        <!-- Home Slider -->
+        <div class="home_slider_container">
+            <div class="owl-carousel owl-theme home_slider">
+                <!-- Slide -->
+                @if (getImages != null && getImages.Count >0)
+                {
+                    @foreach (var item in getImages)
+                    {
+                        <div class="owl-item home_slider_item">
+                            <img class="background_image" src="/NewsImage/@item.ImageName" />
+                            <div class="home_slider_content text-center">
+                                <div class="home_slider_content_inner" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+                                    <div class="home_category mb-2"><a href="#">@_newsRepository.FindAsyncGroup(item.GroupID).Result.GroupTitle</a></div>
+                                    <div class="home_title">@item.NewsTitle</div>
+                                    <div class="home_text">@item.ShortDescription</div>
+                                    <div class="home_button trans_200"><a href="/News/@item.NewsId">ادامه مطلب</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+

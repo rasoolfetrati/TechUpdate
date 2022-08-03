@@ -1,0 +1,50 @@
+﻿@model TechUpdate.Core.ViewModels.Users.UserAddingViewModel
+@{
+    ViewData["Title"] = "افزودن کاربر جدید";
+    Layout = "~/Areas/Admin/Views/Shared/_DefaultAdmin.cshtml";
+}
+
+<br/>
+<div class="card">
+    <div class="card-header bg-primary text-light">
+        اطلاعات کاربر
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">افزودن کاربر جدید</h5>
+        <form method="post" asp-area="Admin" asp-controller="Account" asp-action="AddUser" class="form">
+            <input type="hidden" asp-for="UserId" />
+            <div class="card-primary">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>نام کاربری</label>
+                        <input type="text" asp-for="Username" class="form-control form-control-sm">
+                    </div>
+                    <div class="form-group">
+                        <label>ایمیل</label>
+                        <input type="email" asp-for="Email" class="form-control form-control-sm">
+                    </div>
+                    <div class="form-group">
+                        <label>کلمه عبور</label>
+                        <input type="text" asp-for="Password" class="form-control form-control-sm">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-check-label">حساب کاربری فعال باشد؟</label>
+                        <input type="checkbox" asp-for="IsActive" class="form-check-inline">
+                    </div>
+                    <div class="form-group">
+                        <label>انتخاب نقش کاربر</label>
+                        <select asp-for="Claim" class="form-control">
+                            <option value="0">انتخاب کنید ...</option>
+                            <option value="1">کاربر</option>
+                            <option value="2">خبرنگار</option>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <input type="submit" value="ذخیره اطلاعات" class="btn btn-success" />
+                        <a class="btn btn-warning mr-auto" asp-area="Admin" asp-controller="Account" asp-action="Index">بازگشت</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<TechUpdate.Core.ViewModels.Groups.GroupViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_DefaultAdmin.cshtml";
+    int counter = 1;
+}
+
+<br />
+<p>
+    <a class="btn btn-primary" asp-area="Admin" asp-controller="Groups" asp-action="Create">افزودن گروه خبری جدید</a>
+</p>
+<table class="table table-bordered table-striped">
+    <thead class="bg-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">
+            @Html.DisplayNameFor(model => model.GroupTitle)
+        </th>
+        <th scope="col-3">
+            وضعیت نمایش در کتگوری
+        </th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@counter</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShowInCategory)
+                </td>
+                <td class="text-center">
+                    <span class="btn btn-outline-warning btn-sm"><a asp-area="Admin" asp-controller="Groups" asp-action="Edit" asp-route-Id="@item.GroupID"><i class="fa fa-edit fa-fw"></i></a></span>
+                    <form id="deleteForm" asp-area="Admin" asp-controller="Groups" asp-action="DeleteConfirmed" asp-route-Id="@item.GroupID" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-danger btn-sm" onclick="archiveFunction()">
+                            <i class="fa fa-trash-o fa-fw"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            counter++;
+        }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script>
+        function archiveFunction() {
+            event.preventDefault();
+            var form = event.target.form;
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger m-2'
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: 'آیا مطمئن هستید؟',
+                text: "تغییرات غیر قابل بازگشت خواهد بود!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'بله, حذفش کن!',
+                cancelButtonText: 'نه, منصرف شدم!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'حذف شد!',
+                        'آیتم با موفقیت حذف شد.',
+                        'success'
+                    )
+                    setTimeout(function () {
+                        form.submit();
+                    }, 1000);
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'لغو شد',
+                        'شما عملیات حذف را لغو کردید :)',
+                        'error'
+                    )
+                }
+            })
+        }
+    </script>
+}

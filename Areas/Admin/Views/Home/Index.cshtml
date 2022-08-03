@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "صفحه اصلي";
+    Layout = "~/Areas/Admin/Views/Shared/_DefaultAdmin.cshtml";
+}
+
+<h2>پنل مدیریت سایت</h2>
+<div class="card text-center">
+    <div class="card-header">
+        خوش آمدید @Html.Raw(ViewBag.fullname)
+    </div>
+    <div class="card-body">
+        <a href="/" class="btn btn-primary mb-2"><span>صفحه اصلی سایت<i class="fa fa-home fa-fw"></i></span></a>
+        <p class="card-text">
+            <a asp-area="User_Panel" asp-controller="DashBoard" asp-action="SingOut" class="btn btn-danger"><span>خروج از سایت<i class="fa fa-power-off fa-fw"></i></span></a>
+        </p>
+    </div>
+    <div class="card-footer text-muted">
+        تاریخ امروز:@ViewBag.date
+    </div>
+</div>
+@section Scripts
+{
+
+    <script>
+        var alerted = localStorage.getItem('alerted') || '';
+        if (alerted != 'yes') {
+            Swal.fire(
+                'خوش آمدید',
+                '@Html.Raw(ViewBag.fullname)',
+                'success'
+            )
+            localStorage.clear();
+            localStorage.setItem('alerted', 'yes');
+        }
+    </script>
+    
+}

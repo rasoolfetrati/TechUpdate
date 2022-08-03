@@ -1,0 +1,66 @@
+﻿@using TechUpdate.Core.Services.News
+@using TechUpdate.Site.InfraStructure
+@using TechUpdate.Core.Services.Groups
+@inject INewsRepository _newsRepository
+@inject IGroupRepository _grRepo;
+@{
+    var last = _newsRepository.GetAllNews().Take(4).OrderByDescending(d => d.CreateDate);
+    var most = _newsRepository.GetAllNews().Take(3).OrderByDescending(d => d.PageVisit);
+    var tags = _grRepo.GetAllGroups();
+    int counter = 1;
+}
+<!-- Latest Posts -->
+<div class="sidebar_latest">
+    <div class="sidebar_title">آخرین پست ها</div>
+    <div class="latest_posts">
+        @foreach (var item in last)
+        {
+            <!-- Latest Post -->
+            <div class="latest_post d-flex flex-row align-items-start justify-content-start">
+                <div><div class="latest_post_image"><img src="/NewsImage/thumb/@item.ImageName" alt="@item.NewsTitle"></div></div>
+                <div class="latest_post_content">
+                    <div class="post_category_small cat_video"><a href="#">@_newsRepository.FindAsyncGroup(item.GroupID).Result.GroupTitle</a></div>
+                    <div class="latest_post_title"><a asp-controller="News" asp-action="ShowNews" asp-route-newsId="@item.NewsId">@item.NewsTitle</a></div>
+                    <div class="latest_post_date">@item.CreateDate.ToShamsi()</div>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+</div>
+
+<!-- Most Viewed -->
+
+<div class="most_viewed">
+    <div class="sidebar_title">بیشترین بازدید</div>
+    <div class="most_viewed_items">
+        @foreach (var items in most)
+        {
+            <!-- Most Viewed Item -->
+            <div class="most_viewed_item d-flex flex-row align-items-start justify-content-start">
+                <div><div class="most_viewed_num">@counter</div></div>
+                <div class="most_viewed_content">
+                    <div class="post_category_small cat_video"><a href="#">@_newsRepository.FindAsyncGroup(items.GroupID).Result.GroupTitle</a></div>
+                    <div class="most_viewed_title"><a asp-controller="News" asp-action="ShowNews" asp-route-newsId="@items.NewsId">@items.NewsTitle</a></div>
+                    <div class="most_viewed_date"><a href="/#">@items.CreateDate.ToShamsi()</a></div>
+                </div>
+            </div>
+            counter++;
+        }
+    </div>
+</div>
+
+
+<!-- Tags -->
+
+<div class="tags">
+    <div class="sidebar_title">گروه های خبری</div>
+    <div class="tags_content d-flex flex-row align-items-start justify-content-start flex-wrap">
+        @foreach (var gr in tags)
+        {
+            <div class="tag cat_technology"><a href="#">@gr.GroupTitle</a></div>
+        }
+    </div>
+</div>

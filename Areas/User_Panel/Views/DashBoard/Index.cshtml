@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User_Panel/Views/Shared/_Layout.cshtml";
+}
+<div>
+<partial name="_SideBar"/>
+
+<!-- left side -->
+    <div class="col-md-9 col-sm-12 col-xs-12">
+        <div class="left-content">
+
+            <section class="section-style box-shadow">
+                <header>
+                    <h2> اطلاعات حساب کاربری </h2></header>
+                <div class="inner">
+
+                    <form action="" method="get" class="form-style">
+                        @if (Model.PhoneNumber == null)
+                        {
+                            <div class="alert alert-danger">
+                                <p>
+                                    لطفا اطلاعات حساب كاربري خود را از اين <a asp-area="User_Panel" asp-controller="DashBoard" asp-action="Edit">قسمت</a> تكميل نماييد!
+                                </p>
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-layer">
+                                    <label><i class="fa fa-user-circle"></i> نام و نام خانوادگی : @Model.FirstName @Model.LastName </label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-layer">
+                                    <label><i class="fa fa-globe"></i> آدرس وبسایت : @Model.WebSite</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="input-layer">
+                                    <label><i class="fa fa-mobile-phone"></i> شماره تماس : @Model.PhoneNumber</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <!-- input -->
+                                <div class="input-layer">
+                                    <label><i class=" fa fa-mail-forward"></i> ایمیل : @Model.Email</label>
+                                </div>
+                                <!--/ input -->
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+        </div>
+    </div>
+    <!-- /left side -->
+
+</div>

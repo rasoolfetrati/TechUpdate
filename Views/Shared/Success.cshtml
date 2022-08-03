@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Success";
+}
+@if (ViewBag.Success != false)
+{
+
+    <div class="row">
+        <div class="container">
+            <p>ثبت نام در سايت</p>
+            <div class="alert alert-success">
+                <p>
+                    ایمیلی حاوی لینک فعالسازی برای شما ارسال شد، وارد ایمیل شده و روی لینک فعالسازی کلیک کنید. در صورت عدم دریافت ایمیل از قسمت فراموشی کلمه عبور اقدام نمایید
+                </p>
+            </div>
+        </div>
+
+    </div>
+}
+
+@section Scripts
+{
+    <script src="~/js/sweetalert.js"></script>
+    <script>
+        swal({
+            title: "ثبت نام",
+            text: "ایمیلی حاوی لینک فعالسازی برای شما ارسال شد، وارد ایمیل شده و روی لینک فعالسازی کلیک کنید. در صورت عدم دریافت ایمیل از قسمت فراموشی کلمه عبور اقدام نمایید",
+            icon: "success",
+            button: "باشه!",
+        });
+    </script>
+}

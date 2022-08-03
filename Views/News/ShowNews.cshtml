@@ -1,0 +1,156 @@
+﻿@using TechUpdate.Site.InfraStructure
+@using TechUpdate.Core.Services.News
+@using TechUpdate.DataLayer.Entities.Comment
+@model TechUpdate.DataLayer.Entities.News
+@inject INewsRepository _NewsRepository
+@{
+    ViewData["Title"] = "ShowNews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var coms = _NewsRepository.GetComments(Model.NewsId);
+}
+
+<!-- Home -->
+
+<div class="home">
+    <img class="" src="/images/footer.jpg" />
+    <div class="home_content_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="home_content">
+                        <div class="home_title">اخبار</div>
+                        <div class="breadcrumbs">
+                            <ul class="d-flex flex-row align-items-start justify-content-start">
+                                <li><a href="/">خانه</a></li>
+                                <li><a href="#">@_NewsRepository.FindAsyncGroup(Model.GroupID).Result.GroupTitle</a></li>
+                                <li>@Model.NewsTitle</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Single Post -->
+<div class="content_container">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-9">
+                <div class="single_post">
+                    <div class="post_image"><img src="/NewsImage/@Model.ImageName" alt="@Model.NewsTitle"></div>
+                    <div class="post_content">
+                        <div class="post_category cat_technology"><a href="#">@_NewsRepository.FindAsyncGroup(Model.GroupID).Result.GroupTitle</a></div>
+                        <div class="post_title"><a href="#">@Model.NewsTitle</a></div>
+                        <div class="post_info d-flex flex-row align-items-center justify-content-start">
+                            <div class="post_author d-flex flex-row align-items-center justify-content-start">
+                                <div><div class="post_author_image"><img class="img img-circle" width="24" height="24" src="/UserArea/Avatars/thumbnail/@Model.Writer.Avatar" alt="@Model.Writer.FirstName @Model.Writer.LastName"></div></div>
+                                <div class="post_author_name mr-2"><a asp-controller="Home" asp-action="AboutUs">@Model.Writer.FirstName @Model.Writer.LastName</a></div>
+                            </div>
+                            <div class="post_date"><a href="#">تاریخ انتشار: @Model.CreateDate.ToShamsi()</a></div>
+                            <div class="post_comments_num mr-auto"><a href="#">تعداد نظرات ثبت شده: @_NewsRepository.countofcomments(Model.NewsId)</a></div>
+                        </div>
+                        <div class="post_text">
+                            <p>
+                                @Html.Raw(Model.PageText)
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <!-- Comments -->
+                    <div class="post_comments_container">
+                        <div class="post_comments_title">نظرات کاربران در رابطه با این خبر</div>
+
+
+                        <!-- Comments -->
+                        <div class="post_comments">
+                            @if (coms.Count <= 0)
+                            {
+                                <div class="alert alert-info">
+                                    نظری وجود ندارد شما اولین نفر باشید!
+                                </div>
+                            }
+                            <ul class="post_comments_list">
+
+                                <!-- Comment -->
+                                @foreach (var item in coms)
+                                {
+                                    @if (item.CommentState == CommentState.Confirm)
+                                    {
+                                        <li class="comment">
+                                            <div class="comment_info d-flex flex-row align-items-center justify-content-start">
+                                                <div><div class="comment_image"><img height="24" width="24" class="img img-circle" src="/UserArea/Avatars/thumbnail/@item.UserImage" alt="@item.FullName"></div></div>
+                                                <div class="comment_author mr-2"><a asp-area="User_Panel" asp-controller="DashBoard" asp-action="Index">@item.FullName</a></div>
+                                            </div>
+                                            <div class="comment_content">
+                                                <div class="">
+                                                    <p>@Html.Raw(item.CommentText)</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+
+                                }
+
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <!-- Reply  -->
+                    <div class="reply_form_container">
+                        <div class="reply_form_title mb-2">نظر خود را وارد کنید!</div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form asp-controller="News" asp-action="SaveComments" onsubmit="return required()" method="post" id="form1" class="reply_form">
+                                <input type="hidden" value="@Model.NewsId" name="newsId" />
+                                <textarea id="editor1" name="textarea"></textarea>
+                                <button class="reply_button trans_200">ثبت نظر</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="alert alert-info">
+                                جهت ثبت نظر باید در سایت <a asp-controller="Account" asp-action="Register"> عضو شوید </a> و یا <a asp-controller="Account" asp-action="Login"> وارد سایت </a> شده باشید .
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <partial name="~/Views/SideBar/_LastsPost.cshtml" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/sweetalert.js"></script>
+    <script src="~/ckeditor4/ckeditor.js"></script>
+    <script src="~/ckeditor4/adapters/jquery.js"></script>
+    <script>
+        CKEDITOR.replace('editor1', {
+            language: 'fa',
+            uiColor: '#9AB8F3'
+        });
+    </script>
+    <script>
+        function required() {
+            let x = document.forms["form1"]["editor1"].value.trim();
+            if (x == "" || x == null || x.length <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطا',
+                    text: 'لطفا متن نظر خود را وارد کنید!',
+                });
+                return false;
+            }
+        }
+    </script>
+}

@@ -22,6 +22,7 @@ git clone https://github.com/rasoolfetrati/TechUpdate.git
 6. Run the following commands in the Package Manager Console to apply migrations to the database:
 
 dotnet ef migrations add InitialCreate
+<br>
 dotnet ef database update
 
 7. Run the application by pressing `F5` or clicking the "Start" button in Visual Studio.
